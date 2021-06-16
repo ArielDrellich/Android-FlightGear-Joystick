@@ -12,6 +12,10 @@ public class ViewModel {
 //        port = 0;
 //    }
 
+    public FGPlayer getModel() {
+        return model;
+    }
+
     public void startFlight(String host, int port) {
         try {
             model = new FGPlayer(host,port);
