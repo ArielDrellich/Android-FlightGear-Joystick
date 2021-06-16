@@ -45,6 +45,7 @@ public class Joystick extends View {
         int action = event.getAction();
         if ( action == MotionEvent.ACTION_MOVE ) {
 
+
         }
         else if (action == MotionEvent.ACTION_UP) { //when client off the phone - the circle return to center
 
