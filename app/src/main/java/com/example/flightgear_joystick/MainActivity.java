@@ -23,7 +23,6 @@ public class MainActivity extends AppCompatActivity {
     SeekBar throttleBar;
 
     public MainActivity() {
-        //this.joystick = new Joystick();
         this.viewModel = new ViewModel();
     }
 
@@ -35,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
         portBox = (EditText) findViewById(R.id.input_port);
         flyButton = (Button) findViewById(R.id.flyButton);
         throttleBar = (SeekBar) findViewById(R.id.throttleBar);
+        joystick = (Joystick) findViewById(R.id.joystick_stick);
         portErrorMessage = Snackbar.make(findViewById(android.R.id.content), "Error opening port", 3000);
         flyButton.setOnClickListener(v -> {
             try {

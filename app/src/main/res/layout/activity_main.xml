@@ -11,13 +11,12 @@
         android:id="@+id/mainTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Welcome To FG App!"
+        android:text="Welcome To Flight Gear Remote!"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.053" />
+        app:layout_constraintVertical_bias="0.051" />
 
     <EditText
         android:id="@+id/input_ip"
@@ -103,22 +102,23 @@
         android:id="@+id/joystick_base"
         android:layout_width="268dp"
         android:layout_height="249dp"
-        android:layout_marginBottom="72dp"
+        android:layout_marginBottom="60dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/base" />
+        app:srcCompat="@drawable/base2" />
 
     <TextView
         android:id="@+id/throttleText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="196dp"
+        android:rotation="270"
         android:text="Throttle"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/throttleBar"
-        app:layout_constraintHorizontal_bias="0.014"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.008"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
@@ -130,6 +130,19 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/rudderBar" />
+        app:layout_constraintTop_toTopOf="@+id/rudderBar"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <com.example.flightgear_joystick.view.Joystick
+        android:id="@+id/joystick_stick"
+        android:layout_width="123dp"
+        android:layout_height="119dp"
+        app:layout_constraintBottom_toBottomOf="@+id/joystick_base"
+        app:layout_constraintEnd_toEndOf="@+id/joystick_base"
+        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintStart_toStartOf="@+id/joystick_base"
+        app:layout_constraintTop_toTopOf="@+id/joystick_base"
+        app:layout_constraintVertical_bias="0.481" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
