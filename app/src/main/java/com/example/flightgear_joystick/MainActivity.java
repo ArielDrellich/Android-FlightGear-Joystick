@@ -2,15 +2,16 @@ package com.example.flightgear_joystick;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.os.Bundle;
-import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import com.example.flightgear_joystick.view.Joystick;
 import com.example.flightgear_joystick.view_model.ViewModel;
+import com.google.android.material.snackbar.Snackbar;
+import android.view.View;
+import android.widget.SeekBar;
 
 public class MainActivity extends AppCompatActivity {
     private Joystick joystick;
@@ -18,18 +19,12 @@ public class MainActivity extends AppCompatActivity {
     EditText ipBox;
     EditText portBox;
     Button flyButton;
+    Snackbar portErrorMessage;
+    SeekBar throttleBar;
 
     public MainActivity() {
         //this.joystick = new Joystick();
         this.viewModel = new ViewModel();
-//        ipBox = (EditText) findViewById(R.id.input_ip);
-//        portBox = (EditText) findViewById(R.id.input_port);
-//        flyButton = (Button) findViewById(R.id.flyButton);
-//        flyButton.setOnClickListener(v -> {
-//            String IP = ipBox.getText().toString();
-//            int port = Integer.parseInt(portBox.getText().toString());
-//            viewModel.getModel().sendDataToFG(IP, port);
-//        });
     }
 
     @Override
@@ -39,11 +34,31 @@ public class MainActivity extends AppCompatActivity {
         ipBox = (EditText) findViewById(R.id.input_ip);
         portBox = (EditText) findViewById(R.id.input_port);
         flyButton = (Button) findViewById(R.id.flyButton);
+        throttleBar = (SeekBar) findViewById(R.id.throttleBar);
+        portErrorMessage = Snackbar.make(findViewById(android.R.id.content), "Error opening port", 3000);
         flyButton.setOnClickListener(v -> {
-            String IP = ipBox.getText().toString();
-            int port = Integer.parseInt(portBox.getText().toString());
-//            System.out.println( "port: " + port + " IP: " + IP);
-            viewModel.getModel().sendDataToFG(IP, port);
+            try {
+                // hides the keyboard after clicking Fly button
+                InputMethodManager imm = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+                // opens socket
+                viewModel.startFlight(ipBox.getText().toString(), Integer.parseInt(portBox.getText().toString()));
+            } catch (Exception e) {
+                portErrorMessage.show();
+            }
+        });
+
+        throttleBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                viewModel.setThrottle(progress, seekBar);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {}
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {}
         });
     }
 

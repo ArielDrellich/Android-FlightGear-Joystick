@@ -11,13 +11,7 @@ public class FGPlayer {
     ExecutorService executor;
 
     public FGPlayer() {
-//        try {
-//            fg = new Socket(host, port);
-//            out = new PrintWriter(fg.getOutputStream(),true);
             executor = Executors.newSingleThreadExecutor();
-//        } catch (Exception e) {
-//            System.out.println("Error opening socket: " + e);
-//        }
     }
 
     public void openSocket(String host, int port) throws Exception {
