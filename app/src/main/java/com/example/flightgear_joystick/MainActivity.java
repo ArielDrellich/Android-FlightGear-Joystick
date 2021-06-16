@@ -25,17 +25,26 @@ public class MainActivity extends AppCompatActivity {
 //        ipBox = (EditText) findViewById(R.id.input_ip);
 //        portBox = (EditText) findViewById(R.id.input_port);
 //        flyButton = (Button) findViewById(R.id.flyButton);
-        flyButton.setOnClickListener(v -> {
-            String IP = ipBox.getText().toString();
-            int port = Integer.parseInt(portBox.getText().toString());
-            viewModel.getModel().sendDataToFG(IP, port);
-        });
+//        flyButton.setOnClickListener(v -> {
+//            String IP = ipBox.getText().toString();
+//            int port = Integer.parseInt(portBox.getText().toString());
+//            viewModel.getModel().sendDataToFG(IP, port);
+//        });
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ipBox = (EditText) findViewById(R.id.input_ip);
+        portBox = (EditText) findViewById(R.id.input_port);
+        flyButton = (Button) findViewById(R.id.flyButton);
+        flyButton.setOnClickListener(v -> {
+            String IP = ipBox.getText().toString();
+            int port = Integer.parseInt(portBox.getText().toString());
+//            System.out.println( "port: " + port + " IP: " + IP);
+            viewModel.getModel().sendDataToFG(IP, port);
+        });
     }
 
 

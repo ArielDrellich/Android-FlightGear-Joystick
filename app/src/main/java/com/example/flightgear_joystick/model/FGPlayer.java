@@ -10,14 +10,19 @@ public class FGPlayer {
     PrintWriter out;
     ExecutorService executor;
 
-    public FGPlayer(String host, int port) throws Exception {
+    public FGPlayer() {
 //        try {
-            fg = new Socket(host, port);
-            out = new PrintWriter(fg.getOutputStream(),true);
+//            fg = new Socket(host, port);
+//            out = new PrintWriter(fg.getOutputStream(),true);
             executor = Executors.newSingleThreadExecutor();
 //        } catch (Exception e) {
 //            System.out.println("Error opening socket: " + e);
 //        }
+    }
+
+    public void openSocket(String host, int port) throws Exception {
+        fg = new Socket(host, port);///////figure out how to close later
+        out = new PrintWriter(fg.getOutputStream(),true);
     }
 
     public void sendDataToFG(String field, double value) {

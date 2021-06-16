@@ -7,7 +7,6 @@
     tools:context=".MainActivity">
 
 
-
     <TextView
         android:id="@+id/mainTitle"
         android:layout_width="wrap_content"
@@ -25,8 +24,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="phone"
         android:hint="Enter IP"
+        android:inputType="phone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
@@ -40,8 +39,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:ems="10"
-        android:inputType="phone"
         android:hint="Enter port"
+        android:inputType="phone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.49"
         app:layout_constraintStart_toStartOf="parent"
@@ -60,7 +59,7 @@
         app:layout_constraintVertical_bias="0.088" />
 
     <SeekBar
-        android:id="@+id/seekBar"
+        android:id="@+id/rudderBar"
         android:layout_width="260dp"
         android:layout_height="40dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -69,7 +68,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/flyButton"
         app:layout_constraintVertical_bias="0.942" />
-
+    <!--
     <SeekBar
         android:id="@+id/upSlider"
         android:layout_width="329dp"
@@ -81,5 +80,51 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/flyButton"
         app:layout_constraintVertical_bias="0.265" />
+        -->
+
+    <SeekBar
+        android:id="@+id/throttleBar"
+        android:layout_width="260dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="224dp"
+        android:layout_marginRight="224dp"
+        android:rotation="270"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.742" />
+
+    <ImageView
+        android:id="@+id/joystick_base"
+        android:layout_width="268dp"
+        android:layout_height="249dp"
+        android:layout_marginBottom="72dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/base" />
+
+    <TextView
+        android:id="@+id/throttleText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="196dp"
+        android:text="Throttle"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/throttleBar"
+        app:layout_constraintHorizontal_bias="0.014"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/rudderText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:text="Rudder"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/rudderBar" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
