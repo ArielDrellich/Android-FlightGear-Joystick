@@ -27,9 +27,9 @@ public class Joystick extends View {
 
     public Joystick(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
-        this.boundCircleX = 10;
-        this.boundCircleY = 10;
-        this.boundCircleRadius = 10;
+        this.boundCircleX = 165;
+        this.boundCircleY = 165;
+        this.boundCircleRadius = 110;
     }
 
     public Joystick(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
