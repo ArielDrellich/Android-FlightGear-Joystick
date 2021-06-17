@@ -11,44 +11,37 @@ public class FGPlayer {
     Socket fg;
     PrintWriter out;
     ExecutorService executor;
+    boolean socketOpen;
 
     public FGPlayer() {
-            executor = Executors.newSingleThreadExecutor();
+        // Single thread ThreadPool used for sending data through the socket.
+        executor = Executors.newSingleThreadExecutor();
+        socketOpen = false;
     }
 
+    /* In charge of opening a socket with the provided information. */
     public void openSocket(String host, int port) throws Exception {
-        System.out.println("Ip: "+host+" port: "+port);
-//        executor.execute(() -> {
-//            try {
-//                fg = new Socket(host, port);//////////////////////////////////////figure out how to close later
-//                out = new PrintWriter(fg.getOutputStream(),true);
-//                System.out.println("Socket opened successfully");
-//            }
-//            catch (Exception e) {
-//                System.out.println("Failed to open socket. Exception: " + e);
-//            }
-//        });
-//        Future<?> f = executor.submit(() -> {
-//            fg = new Socket(host, port);//////////////////////////////////////figure out how to close later
-//            out = new PrintWriter(fg.getOutputStream(),true);
-//            System.out.println("Socket opened successfully");
-//            return null;
-//        });
+        // Adds task to ThreadPool, then waits for it to finish before continuing so other processes (such as the seekbars and joystick) don't try to use a printwriter that isn't initialized.
         executor.submit(() -> {
-            fg = new Socket(host, port);//////////////////////////////////////figure out how to close later
+            // for the case where we switch ports before closing the application.
+            if (socketOpen)
+                fg.close();
+            fg = new Socket(host, port);
+            socketOpen = true;
+            // used for communicating with FG
             out = new PrintWriter(fg.getOutputStream(),true);
-            System.out.println("Socket opened successfully");
             return null;
         }).get();
-
-//        f.get();
     }
 
+    /* Receives field of which parameter to update the FG and then sends the value to FG with the appropriate command. */
     public void sendDataToFG(String field, double value) {
         switch (field) {
             case "aileron":
+                // lambda expression to add task to ThreadPool
                 executor.execute(() -> {
                     out.print("set /controls/flight/aileron " + value + "\r\n");
+                    // just in case ;)
                     out.flush();
                 });
                 break;
@@ -75,5 +68,4 @@ public class FGPlayer {
                 break;
         }
     }
-
 }

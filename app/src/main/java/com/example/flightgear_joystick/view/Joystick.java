@@ -38,17 +38,18 @@ public class Joystick extends View {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-
         super.onTouchEvent(event);
+        // relative touch location.
         int xPosition = (int) event.getX() - (stickDiam/2);
         int yPosition = (int) event.getY() - (stickDiam/2);
         int action = event.getAction();
         if ( action == MotionEvent.ACTION_MOVE ) {
-            //event.getActionMasked();
+            // if within the joystick radius.
             if (Math.sqrt(Math.pow(xPosition - startX, 2) + Math.pow(yPosition - startY, 2) ) < circleBoundary) {
                 stickXPos = xPosition;
                 stickYPos = yPosition;
             } else {
+                // find closest point on circle to touch position.
                 double xDist = xPosition - startX;
                 double yDist = yPosition - startY;
                 int dist = (int) Math.sqrt(xDist*xDist + yDist*yDist);
@@ -56,7 +57,8 @@ public class Joystick extends View {
                 stickYPos = (int) ((double) startY + yDist / dist * (double) circleBoundary);
             }
         }
-        else if (action == MotionEvent.ACTION_UP) { //when client off the phone - the circle return to center
+        // when releasing, returns stick to center
+        else if (action == MotionEvent.ACTION_UP) {
             this.stickXPos = startX;
             this.stickYPos = startY;
         }
@@ -69,16 +71,9 @@ public class Joystick extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-       // canvas.drawCircle();
-
-//        Paint paint = new Paint();
-//        paint.setStyle(Paint.Style.FILL);
-//        paint.setAntiAlias(true);
-//        paint.setColor(Color.parseColor("#ff0000"));
-//        canvas.drawCircle(this.boundCircleX, this.boundCircleY, (float)this.boundCircleRadius, paint);
-
-//        Drawable stick = getResources().getDrawable(R.drawable.stick);
+        // draws the stick sprite.
         Drawable stick = getResources().getDrawable(R.drawable.stick_v2);
+        // based on prior calculations.
         stick.setBounds(stickXPos, stickYPos, stickDiam + stickXPos, stickDiam + stickYPos);
         stick.draw(canvas);
     }
