@@ -16,13 +16,15 @@ public class Joystick extends View {
     private final int startY = 210;
     private int stickXPos;
     private int stickYPos;
-    private int boundCircleRadius;
+    private int stickDiam;
+    private double circleBoundary;
 
     public Joystick(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         this.stickXPos = startX;
         this.stickYPos = startY;
-        this.boundCircleRadius = 110;
+        this.circleBoundary = 200;
+        this.stickDiam = 300;
     }
 
     public Joystick(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
@@ -38,13 +40,21 @@ public class Joystick extends View {
     public boolean onTouchEvent(MotionEvent event) {
 
         super.onTouchEvent(event);
-        int xPosition = (int)event.getX();
-        int yPosition = (int)event.getY();
+        int xPosition = (int) event.getX() - (stickDiam/2);
+        int yPosition = (int) event.getY() - (stickDiam/2);
         int action = event.getAction();
         if ( action == MotionEvent.ACTION_MOVE ) {
             //event.getActionMasked();
-            this.stickXPos = xPosition;
-            this.stickYPos = yPosition;
+            if (Math.sqrt(Math.pow(xPosition - startX, 2) + Math.pow(yPosition - startY, 2) ) < circleBoundary) {
+                stickXPos = xPosition;
+                stickYPos = yPosition;
+            } else {
+                double xDist = xPosition - startX;
+                double yDist = yPosition - startY;
+                int dist = (int) Math.sqrt(xDist*xDist + yDist*yDist);
+                stickXPos = (int) ((double) startX + xDist / dist * (double) circleBoundary);
+                stickYPos = (int) ((double) startY + yDist / dist * (double) circleBoundary);
+            }
         }
         else if (action == MotionEvent.ACTION_UP) { //when client off the phone - the circle return to center
             this.stickXPos = startX;
@@ -69,7 +79,7 @@ public class Joystick extends View {
 
 //        Drawable stick = getResources().getDrawable(R.drawable.stick);
         Drawable stick = getResources().getDrawable(R.drawable.stick_v2);
-        stick.setBounds(stickXPos, stickYPos, 300 + stickXPos, 300 + stickYPos);
+        stick.setBounds(stickXPos, stickYPos, stickDiam + stickXPos, stickDiam + stickYPos);
         stick.draw(canvas);
     }
 }
