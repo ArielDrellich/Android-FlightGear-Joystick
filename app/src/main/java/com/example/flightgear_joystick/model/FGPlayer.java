@@ -2,8 +2,10 @@ package com.example.flightgear_joystick.model;
 
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 public class FGPlayer {
     Socket fg;
@@ -15,8 +17,31 @@ public class FGPlayer {
     }
 
     public void openSocket(String host, int port) throws Exception {
-        fg = new Socket(host, port);///////figure out how to close later
-        out = new PrintWriter(fg.getOutputStream(),true);
+        System.out.println("Ip: "+host+" port: "+port);
+//        executor.execute(() -> {
+//            try {
+//                fg = new Socket(host, port);//////////////////////////////////////figure out how to close later
+//                out = new PrintWriter(fg.getOutputStream(),true);
+//                System.out.println("Socket opened successfully");
+//            }
+//            catch (Exception e) {
+//                System.out.println("Failed to open socket. Exception: " + e);
+//            }
+//        });
+//        Future<?> f = executor.submit(() -> {
+//            fg = new Socket(host, port);//////////////////////////////////////figure out how to close later
+//            out = new PrintWriter(fg.getOutputStream(),true);
+//            System.out.println("Socket opened successfully");
+//            return null;
+//        });
+        executor.submit(() -> {
+            fg = new Socket(host, port);//////////////////////////////////////figure out how to close later
+            out = new PrintWriter(fg.getOutputStream(),true);
+            System.out.println("Socket opened successfully");
+            return null;
+        }).get();
+
+//        f.get();
     }
 
     public void sendDataToFG(String field, double value) {

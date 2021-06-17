@@ -10,7 +10,6 @@ import android.widget.EditText;
 import com.example.flightgear_joystick.view.Joystick;
 import com.example.flightgear_joystick.view_model.ViewModel;
 import com.google.android.material.snackbar.Snackbar;
-import android.view.View;
 import android.widget.SeekBar;
 
 public class MainActivity extends AppCompatActivity {
@@ -21,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
     Button flyButton;
     Snackbar portErrorMessage;
     SeekBar throttleBar;
+    SeekBar rudderBar;
 
     public MainActivity() {
         this.viewModel = new ViewModel();
@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
         portBox = (EditText) findViewById(R.id.input_port);
         flyButton = (Button) findViewById(R.id.flyButton);
         throttleBar = (SeekBar) findViewById(R.id.throttleBar);
+        rudderBar = (SeekBar) findViewById(R.id.rudderBar);
         joystick = (Joystick) findViewById(R.id.joystick_stick);
         portErrorMessage = Snackbar.make(findViewById(android.R.id.content), "Error opening port", 3000);
         flyButton.setOnClickListener(v -> {
@@ -41,10 +42,12 @@ public class MainActivity extends AppCompatActivity {
                 // hides the keyboard after clicking Fly button
                 InputMethodManager imm = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+
                 // opens socket
                 viewModel.startFlight(ipBox.getText().toString(), Integer.parseInt(portBox.getText().toString()));
             } catch (Exception e) {
                 portErrorMessage.show();
+                System.out.println("Exception: " + e);
             }
         });
 
@@ -52,6 +55,19 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 viewModel.setThrottle(progress, seekBar);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {}
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {}
+        });
+
+        rudderBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                viewModel.setRudder(progress);
             }
 
             @Override

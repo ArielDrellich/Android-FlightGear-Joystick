@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">FlightGear-Joystick</string>
+    <string name="welcome_text">Welcome To Flight Gear Remote!</string>
+    <string name="enter_ip">Enter IP</string>
+    <string name="enter_port">Enter port</string>
+    <string name="fly_text">Fly!</string>
+    <string name="throttle">Throttle</string>
+    <string name="rudder">Rudder</string>
 </resources>
