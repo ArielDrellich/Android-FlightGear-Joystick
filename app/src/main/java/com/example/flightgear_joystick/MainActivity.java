@@ -3,6 +3,8 @@ package com.example.flightgear_joystick;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.DragEvent;
+import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -51,6 +53,17 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        joystick.setOnDragListener(new View.OnDragListener() {
+            @Override
+            public boolean onDrag(View v, DragEvent event) {
+                double xPosition = ((double) event.getX() - 200) / 200 ;
+                double yPosition = ((double) event.getY() - 200) / 200;
+                viewModel.setAileron(xPosition);
+                viewModel.setElevator(yPosition);
+                return false;
+            }
+        });
+
         throttleBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -75,6 +88,8 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {}
+
+
         });
     }
 

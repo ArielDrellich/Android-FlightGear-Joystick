@@ -19,14 +19,14 @@ public class ViewModel {
             portOpen = true;
     }
 
-    public void setAileron(int a) {
+    public void setAileron(double a) {
         if (portOpen)
-            model.sendDataToFG("aileron", (double)a/1000);
+            model.sendDataToFG("aileron", a);
     }
 
-    public void setElevator(int e) {
+    public void setElevator(double e) {
         if (portOpen)
-            model.sendDataToFG("elevator", (double)e/1000);
+            model.sendDataToFG("elevator", e);
     }
 
     public void setThrottle(int t, SeekBar seekBar) {
