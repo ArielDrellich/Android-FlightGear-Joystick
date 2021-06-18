@@ -2,6 +2,8 @@ package com.example.flightgear_joystick.view;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -14,8 +16,8 @@ import com.example.flightgear_joystick.R;
 public class Joystick extends View {
     private final int startX = 200;
     private final int startY = 215;
-    private final int baseDiam = 700;
-    private final int stickDiam = 300;
+    private final int baseRadius = 350;
+    private final int stickRadius = 150;
     private final double circleBoundary = 200;
     private int stickXPos;
     private int stickYPos;
@@ -39,8 +41,8 @@ public class Joystick extends View {
     public boolean onTouchEvent(MotionEvent event) {
         super.onTouchEvent(event);
         // relative touch location.
-        int xPosition = (int) event.getX() - (stickDiam/2);
-        int yPosition = (int) event.getY() - (stickDiam/2);
+        int xPosition = (int) event.getX() - stickRadius;
+        int yPosition = (int) event.getY() - stickRadius;
         int action = event.getAction();
         if ( action == MotionEvent.ACTION_MOVE ) {
             // if within the joystick base radius.
@@ -70,15 +72,25 @@ public class Joystick extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        /* draws the joystick base sprite. */
+        /* Draws the joystick base sprite. */
         Drawable base = getResources().getDrawable(R.drawable.base2);
-        base.setBounds(0, 0, baseDiam, baseDiam);
+        base.setBounds(0, 0, baseRadius * 2, baseRadius * 2);
         base.draw(canvas);
 
-        /* draws the joystick stick sprite. */
+        /* Connection between base and stick. */
+        Paint paint = new Paint();
+        paint.setStyle(Paint.Style.STROKE);
+        paint.setStrokeWidth(stickRadius);
+        paint.setColor(Color.parseColor("#1f1f1f"));
+        canvas.drawLine(baseRadius, baseRadius, stickXPos + stickRadius, stickYPos + stickRadius, paint);
+        paint.setStyle(Paint.Style.FILL);
+        canvas.drawCircle(baseRadius, baseRadius, stickRadius/2, paint);
+
+
+        /* Draws the joystick stick sprite. */
         Drawable stick = getResources().getDrawable(R.drawable.stick_v2);
         // based on prior calculations.
-        stick.setBounds(stickXPos, stickYPos, stickDiam + stickXPos, stickDiam + stickYPos);
+        stick.setBounds(stickXPos, stickYPos, stickRadius*2 + stickXPos, stickRadius*2 + stickYPos);
         stick.draw(canvas);
     }
 }

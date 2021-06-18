@@ -44,7 +44,8 @@ public class ViewModel {
 
     /* If the port is open, calculates rudder position to the socket via the model. */
     public void setRudder(int r) {
+        System.out.println("rudder: "+((double)(r-1000)/1000));
         if (portOpen)
-            model.sendDataToFG("rudder", (double)r/1000);
+            model.sendDataToFG("rudder", (double)(r-1000)/1000);
     }
 }
