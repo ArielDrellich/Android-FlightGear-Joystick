@@ -15,18 +15,27 @@ import androidx.annotation.Nullable;
 import com.example.flightgear_joystick.R;
 
 public class Joystick extends View {
-    private final int startX = 200;
-    private final int startY = 210;
-    private final int baseRadius = 350;
-    private final int stickRadius = 150;
-    private final double circleBoundary = 200;
-    private int stickXPos;
-    private int stickYPos;
+    private int baseRadius;
+    private int stickRadius, startX, startY, stickXPos, stickYPos, circleBoundary;
 
     public Joystick(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
-        this.stickXPos = startX;
-        this.stickYPos = startY;
+    }
+
+    /* Sets initial positions.
+     * Not in the constructor in order to receive baseDiam after layout is initialized. */
+    public void setPositions(int baseDiam) {
+        baseRadius = (int) (baseDiam * 0.48);
+        stickRadius = (int) (baseRadius * 0.43);
+        startX = baseRadius - stickRadius;
+        startY = startX;
+        stickXPos = startX;
+        stickYPos = startY;
+        circleBoundary = baseRadius - stickRadius;
+    }
+
+    public int getStickRange() {
+        return circleBoundary;
     }
 
     public Joystick(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {

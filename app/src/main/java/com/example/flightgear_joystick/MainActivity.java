@@ -3,9 +3,11 @@ package com.example.flightgear_joystick;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -22,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText portBox;
     private Snackbar portErrorMessage;
     private Snackbar portSuccessMessage;
+    private final int messageDuration = 3000;
 
     public MainActivity() {
         this.viewModel = new ViewModel();
@@ -38,10 +41,10 @@ public class MainActivity extends AppCompatActivity {
         Button flyButton = (Button) findViewById(R.id.flyButton);
         SeekBar throttleBar = (SeekBar) findViewById(R.id.throttleBar);
         SeekBar rudderBar = (SeekBar) findViewById(R.id.rudderBar);
-        joystick = (Joystick) findViewById(R.id.joystick_stick);
+        joystick = (Joystick) findViewById(R.id.joystick);
         View content = findViewById(android.R.id.content);
-        portErrorMessage = Snackbar.make(content, "Error establishing connection.", 3000);
-        portSuccessMessage = Snackbar.make(content, "Connection Successful!", 3000);
+        portErrorMessage = Snackbar.make(content, "Error establishing connection.", messageDuration);
+        portSuccessMessage = Snackbar.make(content, "Connection Successful!", messageDuration);
 
         flyButton.setOnClickListener(v -> {
             try {
@@ -59,12 +62,13 @@ public class MainActivity extends AppCompatActivity {
         });
 
         joystick.setOnTouchListener((v, event) -> {
-            double xPosition = (double) (joystick.getJoystickPosition().x - 200) / 200 ;
-            double yPosition = - (double) (joystick.getJoystickPosition().y - 200) / 200;
+            int offset = joystick.getStickRange();
+            double xPosition = (double) (joystick.getJoystickPosition().x - offset) / offset ;
+            double yPosition = - (double) (joystick.getJoystickPosition().y - offset) / offset;
             // If releasing, return joystick to center
             if (event.getAction() == MotionEvent.ACTION_UP) {
-                xPosition = (double) (joystick.getJoystickStartPosition().x - 200) / 200;
-                yPosition = - (double) (joystick.getJoystickStartPosition().y - 200) / 200;
+                xPosition = (double) (joystick.getJoystickStartPosition().x - offset) / offset;
+                yPosition = - (double) (joystick.getJoystickStartPosition().y - offset) / offset;
             }
             viewModel.setAileron(xPosition);
             viewModel.setElevator(yPosition);
@@ -99,6 +103,21 @@ public class MainActivity extends AppCompatActivity {
             public void onStartTrackingTouch(SeekBar seekBar) {}
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {}
+        });
+
+        /* Sets the joystick positions as soon as the layout is finished. The purpose is to avoid any sort of "magic numbers". */
+        joystick.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                // get the layout of the joystick.
+                Rect joystickBasePosition = new Rect();
+                Joystick joystick = (Joystick) findViewById(R.id.joystick);
+                joystick.getDrawingRect(joystickBasePosition);
+                // send the range to joystick.
+                joystick.setPositions(joystickBasePosition.right - joystickBasePosition.left);
+                //remove now useless listener.
+                joystick.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+            }
         });
     }
 }
