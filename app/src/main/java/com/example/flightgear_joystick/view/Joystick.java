@@ -93,4 +93,5 @@ public class Joystick extends View {
         stick.setBounds(stickXPos, stickYPos, stickRadius*2 + stickXPos, stickRadius*2 + stickYPos);
         stick.draw(canvas);
     }
+
 }
