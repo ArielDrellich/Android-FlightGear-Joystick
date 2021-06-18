@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.DragEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -54,18 +55,30 @@ public class MainActivity extends AppCompatActivity {
                 portErrorMessage.show();
             }
         });
+        //System.out.println("Enter To Listiner");
+//        joystick.setOnDragListener(new View.OnDragListener() {
+//            @Override
+//            public boolean onDrag(View v, DragEvent event) {
+//                System.out.println("Enter To Joy Listiner");
+//                double xPosition = ((double) event.getX() - 200) / 200 ;
+//                double yPosition = ((double) event.getY() - 200) / 200;
+//                viewModel.setAileron(xPosition);
+//                viewModel.setElevator(yPosition);
+//                return false;
+//            }
+//        });
 
-        joystick.setOnDragListener(new View.OnDragListener() {
+        joystick.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public boolean onDrag(View v, DragEvent event) {
+            public boolean onTouch(View v, MotionEvent event) {
+                System.out.println("Enter To Joy Listiner");
                 double xPosition = ((double) event.getX() - 200) / 200 ;
-                double yPosition = ((double) event.getY() - 200) / 200;
+                double yPosition = (200 - (double) event.getY()) / 200;
                 viewModel.setAileron(xPosition);
                 viewModel.setElevator(yPosition);
                 return false;
             }
         });
-
         // sets listener for moving the throttle seek bar.
         throttleBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
