@@ -75,26 +75,15 @@
         android:id="@+id/throttleBar"
         android:layout_width="260dp"
         android:layout_height="40dp"
-        android:layout_marginEnd="224dp"
-        android:layout_marginRight="224dp"
+        android:layout_marginEnd="148dp"
+        android:layout_marginRight="148dp"
         android:max="1000"
         android:progress="0"
         android:rotation="270"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/joystick_stick"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.742" />
-
-    <ImageView
-        android:id="@+id/joystick_base"
-        android:layout_width="268dp"
-        android:layout_height="249dp"
-        android:layout_marginBottom="60dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.524"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/base2" />
+        app:layout_constraintVertical_bias="0.756" />
 
     <TextView
         android:id="@+id/throttleText"
@@ -122,14 +111,13 @@
 
     <com.example.flightgear_joystick.view.Joystick
         android:id="@+id/joystick_stick"
-        android:layout_width="265dp"
-        android:layout_height="248dp"
-        app:layout_constraintBottom_toBottomOf="@+id/joystick_base"
-        app:layout_constraintEnd_toEndOf="@+id/joystick_base"
-        app:layout_constraintHorizontal_bias="0.477"
-        app:layout_constraintStart_toStartOf="@+id/joystick_base"
-        app:layout_constraintTop_toTopOf="@+id/joystick_base"
-        app:layout_constraintVertical_bias="0.503" />
+        android:layout_width="266dp"
+        android:layout_height="253dp"
+        app:layout_constraintBottom_toTopOf="@+id/rudderBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/flyButton"
+        app:layout_constraintVertical_bias="1.0" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
