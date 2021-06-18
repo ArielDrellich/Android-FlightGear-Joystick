@@ -2,8 +2,8 @@ package com.example.flightgear_joystick;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.view.DragEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -16,19 +16,18 @@ import com.google.android.material.snackbar.Snackbar;
 import android.widget.SeekBar;
 
 public class MainActivity extends AppCompatActivity {
+    private final ViewModel viewModel;
     private Joystick joystick;
-    private ViewModel viewModel;
-    EditText ipBox;
-    EditText portBox;
-    Button flyButton;
-    Snackbar portErrorMessage;
-    SeekBar throttleBar;
-    SeekBar rudderBar;
+    private EditText ipBox;
+    private EditText portBox;
+    private Snackbar portErrorMessage;
+    private Snackbar portSuccessMessage;
 
     public MainActivity() {
         this.viewModel = new ViewModel();
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,11 +35,13 @@ public class MainActivity extends AppCompatActivity {
         // initializers based on id.
         ipBox = (EditText) findViewById(R.id.input_ip);
         portBox = (EditText) findViewById(R.id.input_port);
-        flyButton = (Button) findViewById(R.id.flyButton);
-        throttleBar = (SeekBar) findViewById(R.id.throttleBar);
-        rudderBar = (SeekBar) findViewById(R.id.rudderBar);
+        Button flyButton = (Button) findViewById(R.id.flyButton);
+        SeekBar throttleBar = (SeekBar) findViewById(R.id.throttleBar);
+        SeekBar rudderBar = (SeekBar) findViewById(R.id.rudderBar);
         joystick = (Joystick) findViewById(R.id.joystick_stick);
-        portErrorMessage = Snackbar.make(findViewById(android.R.id.content), "Error opening port", 3000);
+        View content = findViewById(android.R.id.content);
+        portErrorMessage = Snackbar.make(content, "Error establishing connection.", 3000);
+        portSuccessMessage = Snackbar.make(content, "Connection Successful!", 3000);
 
         flyButton.setOnClickListener(v -> {
             try {
@@ -50,35 +51,27 @@ public class MainActivity extends AppCompatActivity {
 
                 // opens socket based on information from text boxes.
                 viewModel.startFlight(ipBox.getText().toString(), Integer.parseInt(portBox.getText().toString()));
+                portSuccessMessage.show();
             } catch (Exception e) {
                 // display error message on screen.
                 portErrorMessage.show();
             }
         });
-        //System.out.println("Enter To Listiner");
-//        joystick.setOnDragListener(new View.OnDragListener() {
-//            @Override
-//            public boolean onDrag(View v, DragEvent event) {
-//                System.out.println("Enter To Joy Listiner");
-//                double xPosition = ((double) event.getX() - 200) / 200 ;
-//                double yPosition = ((double) event.getY() - 200) / 200;
-//                viewModel.setAileron(xPosition);
-//                viewModel.setElevator(yPosition);
-//                return false;
-//            }
-//        });
 
-        joystick.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                System.out.println("Enter To Joy Listiner");
-                double xPosition = ((double) event.getX() - 200) / 200 ;
-                double yPosition = (200 - (double) event.getY()) / 200;
-                viewModel.setAileron(xPosition);
-                viewModel.setElevator(yPosition);
-                return false;
+        joystick.setOnTouchListener((v, event) -> {
+            double xPosition = (double) (joystick.getJoystickPosition().x - 200) / 200 ;
+            double yPosition = - (double) (joystick.getJoystickPosition().y - 200) / 200;
+            // If releasing, return joystick to center
+            if (event.getAction() == MotionEvent.ACTION_UP) {
+                xPosition = (double) (joystick.getJoystickStartPosition().x - 200) / 200;
+                yPosition = - (double) (joystick.getJoystickStartPosition().y - 200) / 200;
             }
+            viewModel.setAileron(xPosition);
+            viewModel.setElevator(yPosition);
+            return false;
         });
+
+
         // sets listener for moving the throttle seek bar.
         throttleBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -90,7 +83,6 @@ public class MainActivity extends AppCompatActivity {
             // necessary overrides that aren't used
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {}
-
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {}
         });
@@ -105,20 +97,8 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {}
-
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {}
-
-
         });
     }
-
-
-
-
-    /*this.joystick.onChange=(a,e)->{
-        this.viewModel.setAileron(a);
-        this.viewModel.setElevator(e);
-    }*/
-
 }

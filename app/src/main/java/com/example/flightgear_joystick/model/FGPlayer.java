@@ -24,8 +24,10 @@ public class FGPlayer {
         // Adds task to ThreadPool, then waits for it to finish before continuing so other processes (such as the seekbars and joystick) don't try to use a printwriter that isn't initialized.
         executor.submit(() -> {
             // for the case where we switch ports before closing the application.
-            if (socketOpen)
+            if (socketOpen) {
                 fg.close();
+                socketOpen = false;
+            }
             fg = new Socket(host, port);
             socketOpen = true;
             // used for communicating with FG

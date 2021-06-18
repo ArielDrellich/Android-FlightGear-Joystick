@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Point;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -15,7 +16,7 @@ import com.example.flightgear_joystick.R;
 
 public class Joystick extends View {
     private final int startX = 200;
-    private final int startY = 215;
+    private final int startY = 210;
     private final int baseRadius = 350;
     private final int stickRadius = 150;
     private final double circleBoundary = 200;
@@ -35,6 +36,14 @@ public class Joystick extends View {
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
+    }
+
+    public Point getJoystickPosition() {
+        return new Point(stickXPos, stickYPos);
+    }
+
+    public Point getJoystickStartPosition() {
+        return new Point(startX, startY);
     }
 
     @Override
