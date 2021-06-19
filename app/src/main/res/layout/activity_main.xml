@@ -74,27 +74,30 @@
         android:id="@+id/throttleBar"
         android:layout_width="260dp"
         android:layout_height="40dp"
-        android:layout_marginEnd="148dp"
-        android:layout_marginRight="148dp"
+        android:layout_marginEnd="160dp"
+        android:layout_marginRight="160dp"
         android:max="1000"
         android:progress="0"
         android:rotation="270"
-        app:layout_constraintEnd_toEndOf="@+id/joystick_stick"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintVertical_bias="0.756" />
+        app:layout_constraintEnd_toEndOf="@+id/joystick"
+        app:layout_constraintHorizontal_bias="0.95"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.763" />
 
     <TextView
         android:id="@+id/throttleText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="196dp"
         android:rotation="270"
         android:text="@string/throttle"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.008"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toEndOf="@+id/throttleBar"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.76" />
 
     <TextView
         android:id="@+id/rudderText"
@@ -109,7 +112,7 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <com.example.flightgear_joystick.view.Joystick
-        android:id="@+id/joystick_stick"
+        android:id="@+id/joystick"
         android:layout_width="266dp"
         android:layout_height="253dp"
         app:layout_constraintBottom_toTopOf="@+id/rudderBar"
