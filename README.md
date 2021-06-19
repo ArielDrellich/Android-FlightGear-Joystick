@@ -23,7 +23,6 @@ Flight Gear
 
 ## Documentation
 Here you can find the UML contains partial information of the central classes. UML represents the various connections between the classes and the most important information found in each class. UML can be found here.
-If you are a developer you can find full documentation of functions, variables, and more in the code.
 
 ## Video
 Here you can find a link to our demo video - link.
