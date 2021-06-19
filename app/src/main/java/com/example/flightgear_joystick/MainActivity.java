@@ -17,6 +17,8 @@ import com.example.flightgear_joystick.view_model.ViewModel;
 import com.google.android.material.snackbar.Snackbar;
 import android.widget.SeekBar;
 
+import java.io.IOException;
+
 public class MainActivity extends AppCompatActivity {
     private final ViewModel viewModel;
     private Joystick joystick;
@@ -119,5 +121,19 @@ public class MainActivity extends AppCompatActivity {
                 joystick.getViewTreeObserver().removeOnGlobalLayoutListener(this);
             }
         });
+
+
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        try {
+            viewModel.stopSocket();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 }

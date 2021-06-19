@@ -4,6 +4,8 @@ import android.widget.SeekBar;
 
 import com.example.flightgear_joystick.model.FGPlayer;
 
+import java.io.IOException;
+
 public class ViewModel {
     private FGPlayer model;
     boolean portOpen;
@@ -46,5 +48,8 @@ public class ViewModel {
     public void setRudder(int r) {
         if (portOpen)
             model.sendDataToFG("rudder", (double)(r-1000)/1000);
+    }
+    public void stopSocket() throws IOException {
+        model.stopSocket();
     }
 }

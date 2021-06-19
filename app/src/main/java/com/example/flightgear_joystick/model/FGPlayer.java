@@ -1,5 +1,6 @@
 package com.example.flightgear_joystick.model;
 
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.concurrent.Callable;
@@ -69,5 +70,10 @@ public class FGPlayer {
                 });
                 break;
         }
+    }
+
+    public void stopSocket() throws IOException {
+        fg.close();
+        socketOpen = false;
     }
 }
