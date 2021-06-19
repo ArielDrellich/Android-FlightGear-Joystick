@@ -60,7 +60,9 @@ public class MainActivity extends AppCompatActivity {
 
         joystick.setOnTouchListener((v, event) -> {
             double xPosition = (double) (joystick.getJoystickPosition().x - 200) / 200 ;
-            double yPosition = - (double) (joystick.getJoystickPosition().y - 200) / 200;
+            double yPosition = - (double) (joystick.getJoystickPosition().y - 205) / 205;
+            System.out.println("x is: " + joystick.getJoystickPosition().x);
+            System.out.println("y is: " + joystick.getJoystickPosition().y);
             // If releasing, return joystick to center
             if (event.getAction() == MotionEvent.ACTION_UP) {
                 xPosition = (double) (joystick.getJoystickStartPosition().x - 200) / 200;
