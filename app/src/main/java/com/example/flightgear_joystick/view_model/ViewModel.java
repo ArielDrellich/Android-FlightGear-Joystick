@@ -49,6 +49,7 @@ public class ViewModel {
         if (portOpen)
             model.sendDataToFG("rudder", (double)(r-1000)/1000);
     }
+    /* Closes the socket. */
     public void stopSocket() throws IOException {
         model.stopSocket();
     }

@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
         portErrorMessage = Snackbar.make(content, "Error establishing connection.", messageDuration);
         portSuccessMessage = Snackbar.make(content, "Connection Successful!", messageDuration);
 
+        // Open socket based on info in text boxes, if it fails for any reason, display error on screen.
         flyButton.setOnClickListener(v -> {
             try {
                 // hides the keyboard after clicking "Fly" button.
@@ -65,13 +66,17 @@ public class MainActivity extends AppCompatActivity {
 
         joystick.setOnTouchListener((v, event) -> {
             int offset = joystick.getStickRange();
-            double xPosition = (double) (joystick.getJoystickPosition().x - offset) / offset ;
-            double yPosition = - (double) (joystick.getJoystickPosition().y - offset) / offset;
-            // If releasing, return joystick to center
-            if (event.getAction() == MotionEvent.ACTION_UP) {
+            double xPosition, yPosition;
+            // Calculates aileron and elevator based on joystick position.
+            if (event.getAction() != MotionEvent.ACTION_UP) {
+                xPosition = (double) (joystick.getJoystickPosition().x - offset) / offset ;
+                yPosition = - (double) (joystick.getJoystickPosition().y - offset) / offset;
+            } else {
+                // If releasing, return joystick to center.
                 xPosition = (double) (joystick.getJoystickStartPosition().x - offset) / offset;
                 yPosition = - (double) (joystick.getJoystickStartPosition().y - offset) / offset;
             }
+            // Updates the ViewModel with
             viewModel.setAileron(xPosition);
             viewModel.setElevator(yPosition);
             return false;

@@ -15,8 +15,7 @@ import androidx.annotation.Nullable;
 import com.example.flightgear_joystick.R;
 
 public class Joystick extends View {
-    private int baseRadius;
-    private int stickRadius, startX, startY, stickXPos, stickYPos, circleBoundary;
+    private int baseRadius, stickRadius, startX, startY, stickXPos, stickYPos, circleBoundary;
 
     public Joystick(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
@@ -25,6 +24,7 @@ public class Joystick extends View {
     /* Sets initial positions.
      * Not in the constructor in order to receive baseDiam after layout is initialized. */
     public void setPositions(int baseDiam) {
+        // Relational sizes based on joystick image and stick image.
         baseRadius = (int) (baseDiam * 0.48);
         stickRadius = (int) (baseRadius * 0.43);
         startX = baseRadius - stickRadius;

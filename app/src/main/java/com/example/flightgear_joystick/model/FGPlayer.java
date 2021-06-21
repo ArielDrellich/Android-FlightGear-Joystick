@@ -3,10 +3,8 @@ package com.example.flightgear_joystick.model;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
 
 public class FGPlayer {
     Socket fg;
@@ -22,7 +20,8 @@ public class FGPlayer {
 
     /* In charge of opening a socket with the provided information. */
     public void openSocket(String host, int port) throws Exception {
-        // Adds task to ThreadPool, then waits for it to finish before continuing so other processes (such as the seekbars and joystick) don't try to use a printwriter that isn't initialized.
+        /* Adds task to ThreadPool, then waits for it to finish before continuing so other processes (such as the seekbars and joystick)
+           don't try to use a printwriter that isn't initialized. */
         executor.submit(() -> {
             // for the case where we switch ports before closing the application.
             if (socketOpen) {
@@ -31,7 +30,7 @@ public class FGPlayer {
             }
             fg = new Socket(host, port);
             socketOpen = true;
-            // used for communicating with FG
+            // used for communicating with FG.
             out = new PrintWriter(fg.getOutputStream(),true);
             return null;
         }).get();
@@ -72,6 +71,7 @@ public class FGPlayer {
         }
     }
 
+    /* Closes the socket. */
     public void stopSocket() throws IOException {
         fg.close();
         socketOpen = false;
