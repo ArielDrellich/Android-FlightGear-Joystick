@@ -6,7 +6,7 @@ import java.net.Socket;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class FGPlayer {
+public class FGPlayer implements IFGPlayer {
     Socket fg;
     PrintWriter out;
     ExecutorService executor;

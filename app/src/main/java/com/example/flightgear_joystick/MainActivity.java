@@ -47,7 +47,6 @@ public class MainActivity extends AppCompatActivity {
         View content = findViewById(android.R.id.content);
         portErrorMessage = Snackbar.make(content, "Error establishing connection.", messageDuration);
         portSuccessMessage = Snackbar.make(content, "Connection Successful!", messageDuration);
-
         // Open socket based on info in text boxes, if it fails for any reason, display error on screen.
         flyButton.setOnClickListener(v -> {
             try {
