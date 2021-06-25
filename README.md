@@ -34,8 +34,13 @@ Flight Gear
 #### How it looks:
 ![image](https://github.com/ArielDrellich/Android-FlightGear-Joystick/blob/master/Images/1.jpeg)
 
+![image](https://github.com/ArielDrellich/Android-FlightGear-Joystick/blob/master/Images/2.jpeg)
+
+
 ## Documentation
 Here you can find the UML contains partial information of the central classes. UML represents the various connections between the classes and the most important information found in each class. UML can be found here.
+
+![image](https://github.com/ArielDrellich/Android-FlightGear-Joystick/blob/master/UML.png)
 
 ## Video
 Here you can find a link to our demo video - link.
