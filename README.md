@@ -2,10 +2,11 @@
 
 **Technical info:**  
 Flight Gear settings : --telnet=socket,in,10,127.0.0.1,6400,tcp 
+Note: 6400 is just a recommended port, but can be chosen freely by the user.
 
 ## Description
-The client holds and runs the android application. When the user wants to connect the flight gear, he enter ip and port of the flight gear computer, click outo start on the FG and click "Fly!".  
-Then, the user can control the hole flight: from the joystick, to the rudder and thorttle.
+The client runs the android application on either an emulator or an Android phone, and runs FlightGear on a computer. When the user wants to connect the FlightGear, they enter the IP address of the computer running the FlightGear, as well as the port chosen in the FlightGear settings. In the app click the "Fly!" button and in the FlightGear click "autostart" (located in the tab with the name of the chosen plane).
+Then the user can control the whole flight: joystick, rudder, and throttle.
 
 
 ## Installation And Running application
@@ -21,12 +22,23 @@ Flight Gear
 4.Model
 
 ###1.Main Activity
+The Main Activity(view) contains a reference to the joystick, input fields, and seekbars.
+Here we define Listeners which are used to listen to the control elements and send the appropriate data to the ViewModel.
 
 ###2.Joystick
+File that includes all the details about the current status of the joystick.
+Includes small circle with border of big circle.
+Processes every touch event on the joystick.
 
 ###3.ViewModel
+The ViewModel is the connection between the Model and the View.
+It takes the data from the View and sends it to the Model after calculations if needed.
 
 ###4.Model
+The Model includes connection to the server of the FlightGear.
+In addition, the Model is responsible for sending the updated flight data to the FlightGear.
+The Model closes the connection when the user close the app.
+
 
 
 
