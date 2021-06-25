@@ -1,7 +1,7 @@
 # Android FlightGear Joystick
 
 **Technical info:**  
-Flight Gear settings : --telnet=socket,in,10,127.0.0.1,6400,tcp 
+Flight Gear settings : --telnet=socket,in,10,127.0.0.1,6400,tcp  
 Note: 6400 is just a recommended port, but can be chosen freely by the user.
 
 ## Description
