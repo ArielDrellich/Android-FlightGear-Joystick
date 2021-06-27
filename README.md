@@ -11,7 +11,10 @@ This is an Android app that a user can use to connect to a computer running Flig
 
 
 ## Installation And Running application
-Before running our app you need to download and install the FlightGear application. [You can find a download link here.](https://www.flightgear.org/download/ "FlightGear Download")  
+1.Before running our app you need to download and install the FlightGear application. [You can find a download link here.](https://www.flightgear.org/download/ "FlightGear Download")  
+2.Download Android Studio.
+3.Download the repo on your computer and run the app.
+
 
 The client runs the android application on either an emulator or an Android phone, and runs FlightGear on a computer. When the user wants to connect the FlightGear, they enter the IP address of the computer running the FlightGear, as well as the port chosen in the FlightGear settings. In the app click the "Fly!" button and in the FlightGear click "autostart" (located in the tab with the name of the chosen plane).
 <!-- The app connects to the FlightGear and the user can now control the flight using the joystick, rudder, and throttle. -->
