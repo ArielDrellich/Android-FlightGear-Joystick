@@ -13,6 +13,7 @@ This is an Android app that a user can use to connect to a computer running Flig
 ## Installation And Running application
 1.Before running our app you need to download and install the FlightGear application. [You can find a download link here.](https://www.flightgear.org/download/ "FlightGear Download")  
 2.Download Android Studio.
+
 3.Download the repo on your computer and run the app.
 
 
