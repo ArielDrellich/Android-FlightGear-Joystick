@@ -55,7 +55,7 @@ The Model closes the connection when the user close the app.
 #### How it looks:
 <img src="https://github.com/ArielDrellich/Android-FlightGear-Joystick/blob/master/Images/1.jpeg" width="250" height="500">
 
-<img src="https://github.com/ArielDrellich/Android-FlightGear-Joystick/blob/master/photo2.png" width="250" height="500">
+<img src="https://github.com/ArielDrellich/Android-FlightGear-Joystick/blob/master/photo2.png">
 
 
 ## Documentation
