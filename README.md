@@ -60,4 +60,4 @@ Here you can find the UML contains partial information of the central classes. U
 ![image](https://github.com/ArielDrellich/Android-FlightGear-Joystick/blob/master/UML.png)
 
 ## Video
-Here you can find a link to our demo video - link.
+Here you can find a link to our demo video - https://www.youtube.com/watch?v=KJTP_ruWYMw&ab_channel=Sapir
